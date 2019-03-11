@@ -29,7 +29,7 @@ gulp.task('style', function () {
     ]))
     .pipe(browserSync.stream())
     .pipe(minify())
-    .pipe(gulp.dest('build'));
+    .pipe(gulp.dest('build/styles'));
 });
 
 gulp.task('scripts', function () {
