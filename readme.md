@@ -1,4 +1,4 @@
-<h1><strong>OptimizedHTML 4:</strong> <br>Startup HTML template based on Gulp & Bootstrap 4</h1>
+<h1><strong>Pure boilerplant:</strong> <br>Startup HTML template based on Gulp, Vue and Webpack.</h1>
 
 <p>
 	<img src="https://raw.githubusercontent.com/yahchi/yahchi-template/master/src/assets/_img/raiffaisen.jpg" alt="Start HTML Template">
