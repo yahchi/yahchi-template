@@ -1,0 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,700,900&display=swap');
+
+@import "_mixins/font-face";
+
+@include font-face("roboto-example", "../fonts/RobotoRegular/RobotoRegular");
+@include font-face("roboto-example", "../fonts/RobotoBold/RobotoBold", bold);
