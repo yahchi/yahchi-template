@@ -1,9 +1,7 @@
 
 
-
-
-import popupMessage from './vue-template/popup-message.vue';
-Vue.component('popup', popupMessage)
+import helloFirst from './vue-template/hello-message.vue';
+Vue.component('hello', helloFirst);
 
 
 var app7 = new Vue({

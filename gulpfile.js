@@ -25,7 +25,7 @@ gulp.task('browser-sync', function () {
     // open: false,
     // online: false, // Work Offline Without Internet Connection
     // tunnel: true, tunnel: "projectname", // Demonstration page: http://projectname.localtunnel.me
-  })
+  });
 });
 
 // Sass|Scss Styles
@@ -35,7 +35,7 @@ gulp.task('styles', function () {
     .pipe(rename({ suffix: '.min', prefix: '' }))
     .pipe(autoprefixer(['last 15 versions']))
     .pipe(gulp.dest('public/css'))
-    .pipe(browserSync.stream())
+    .pipe(browserSync.stream());
 });
 
 gulp.task('scripts', function () {
@@ -80,7 +80,7 @@ gulp.task('prettier', function() {
 // HTML Live Reload
 gulp.task('code', function () {
   return gulp.src('public/*.html')
-    .pipe(browserSync.reload({ stream: true }))
+    .pipe(browserSync.reload({ stream: true }));
 });
 
 // Images @x1 & @x2 + Compression | Required graphicsmagick (sudo apt update; sudo apt install graphicsmagick)
@@ -88,20 +88,19 @@ gulp.task('img1x', function () {
   return gulp.src('src/assets/_img/**/*.*')
     .pipe(imageResize({ width: '50%' }))
     .pipe(imagemin())
-    .pipe(gulp.dest('public/img/@1x/'))
+    .pipe(gulp.dest('public/img/@1x/'));
 });
 gulp.task('img2x', function () {
   return gulp.src('src/assets/_img/**/*.*')
     .pipe(imageResize({ width: '100%' }))
     .pipe(imagemin())
-    .pipe(gulp.dest('public/img/@2x/'))
+    .pipe(gulp.dest('public/img/@2x/'));
 });
 
 // Clean @*x IMG's
 gulp.task('cleanimg', function () {
-  return del(['app/img/@*'], { force: true })
+  return del(['app/img/@*'], { force: true });
 });
-
 
 
 
@@ -112,7 +111,8 @@ gulp.task('watch', function () {
   gulp.watch('src/scss/**/*.scss', gulp.parallel('styles'));
   gulp.watch('src/js/index.js', gulp.parallel('scripts'));
   gulp.watch('public/*.html', gulp.parallel('code'));
-  gmWatch && gulp.watch('src/assets/_img/**/*', gulp.parallel('img')); // GraphicsMagick watching image sources if allowed.
+  gulp.watch('src/js/vue-template/*.*', gulp.parallel('scripts'));
+  gmWatch && gulp.watch('src/assets/_img/**/*', gulp.parallel('img'));
 });
 
 gmWatch ? gulp.task('default', gulp.parallel('img', 'styles', 'scripts', 'browser-sync', 'watch'))

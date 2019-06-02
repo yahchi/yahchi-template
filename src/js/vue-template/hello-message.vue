@@ -1,15 +1,15 @@
 <template>
-  <div class="popup">
+  <div class="hello">
     <div class="inner">
-      <div class="text"> bloops </div>
+      <div class="text"> {{ helloTitle }} </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "popup",
-  props: ["popupTitle"],
+  name: "hello",
+  props: ["helloTitle"],
   methods: {
     openModal: function(e) {
       e.preventDefault();
@@ -21,4 +21,8 @@ export default {
 </script>
 
 <style lang="scss">
+.hello {
+    margin-top: 1rem;
+    font-size: 1rem;
+}
 </style>
