@@ -47,8 +47,15 @@ gulp.task('scripts', function () {
       module: {
         rules: [
           {
+            test: /\.scss$/,
+            loaders: ['style', 'css', 'sass']
+          },
+          {
+            test: /\.vue$/,
+            loader: 'vue-loader'
+          },
+          {
             test: /\.(js)$/,
-            exclude: /(node_modules)/,
             loader: 'babel-loader',
             query: {
               presets: ['env']
@@ -103,7 +110,7 @@ gulp.task('img', gulp.parallel('img1x', 'img2x'));
 
 gulp.task('watch', function () {
   gulp.watch('src/scss/**/*.scss', gulp.parallel('styles'));
-  gulp.watch('src/js/index.js', gulp.parallel('scripts', 'prettier'));
+  gulp.watch('src/js/index.js', gulp.parallel('scripts'));
   gulp.watch('public/*.html', gulp.parallel('code'));
   gmWatch && gulp.watch('src/assets/_img/**/*', gulp.parallel('img')); // GraphicsMagick watching image sources if allowed.
 });

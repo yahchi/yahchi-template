@@ -1,4 +1,11 @@
-$(document).ready(() => {
-  let str = `window location is ${window.location}`;
-  console.log(str);
+
+
+
+
+import popupMessage from './vue-template/popup-message.vue';
+Vue.component('popup', popupMessage)
+
+
+var app7 = new Vue({
+  el: '#app',
 });
