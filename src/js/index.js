@@ -1,9 +1,18 @@
+/**
+ * vscode plugin for highlights TODOs and FIXMEs within you code
+ * 
+ * TODO:
+ * - [] Add lodash
+ * - [] 
+ * - [] 
+ */
 
 
-import helloFirst from './vue-template/hello-message.vue';
-Vue.component('hello', helloFirst);
+$(document).ready(function () {
 
 
-var app7 = new Vue({
-  el: '#app',
-});
+  var lazyLoadInstance = new LazyLoad({
+    elements_selector: ".lazy"
+    // ... more custom settings?
+  });
+})

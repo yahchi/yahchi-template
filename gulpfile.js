@@ -19,7 +19,7 @@ const gulp = require('gulp'),
 gulp.task('browser-sync', function () {
   browserSync({
     server: {
-      baseDir: 'public'
+      baseDir: 'src'
     },
     notify: false,
     // open: false,
@@ -30,48 +30,39 @@ gulp.task('browser-sync', function () {
 
 // Sass|Scss Styles
 gulp.task('styles', function () {
-  return gulp.src('src/scss/**/main.scss')
+  return gulp.src('src/scss/main.scss')
     .pipe(sass({ outputStyle: 'expanded' }).on("error", notify.onError()))
     .pipe(rename({ suffix: '.min', prefix: '' }))
     .pipe(autoprefixer(['last 15 versions']))
-    .pipe(gulp.dest('public/css'))
+    .pipe(gulp.dest('src/css'))
     .pipe(browserSync.stream());
 });
 
+gulp.task('header', function () {
+  return gulp.src('src/scss/header.scss')
+    .pipe(sass({ outputStyle: 'expanded' }).on("error", notify.onError()))
+    .pipe(rename({ suffix: '.min', prefix: '' }))
+    .pipe(autoprefixer(['last 15 versions']))
+    .pipe(gulp.dest('src/css'))
+    .pipe(browserSync.stream());
+});
+
+// JS scripts
 gulp.task('scripts', function () {
-  return gulp.src('src/js/index.js')
-    .pipe(webpackStream({
-      output: {
-        filename: 'app.js',
-      },
-      module: {
-        rules: [
-          {
-            test: /\.scss$/,
-            loaders: ['style', 'css', 'sass']
-          },
-          {
-            test: /\.vue$/,
-            loader: 'vue-loader'
-          },
-          {
-            test: /\.(js)$/,
-            loader: 'babel-loader',
-            query: {
-              presets: ['env']
-            }
-          }
-        ]
-      }
-    }))
-    .pipe(gulp.dest('./public/js/'))
-    .pipe(uglify())
-    .pipe(rename({ suffix: '.min' }))
-    .pipe(gulp.dest('./public/js/'))
-    .pipe(browserSync.stream());
+  return gulp.src([
+    'src/libs/jquery/dist/jquery.min.js',
+    'src/libs/lazyload/lazyload.min.js',
+    'src/libs/magnific/jquery.magnific-popup.min.js',
+    'src/libs/slick/slick.min.js',
+  ])
+    .pipe(concat('scripts.min.js'))
+    // .pipe(uglify()) // Mifify js (opt.)
+    .pipe(gulp.dest('src/js'))
+    .pipe(browserSync.reload({ stream: true }))
 });
 
-gulp.task('prettier', function() {
+
+gulp.task('prettier', function () {
   return gulp.src('src/js/index.js')
     .pipe(prettier({ singleQuote: true }))
     .pipe(gulp.dest('src/js'));
@@ -79,7 +70,7 @@ gulp.task('prettier', function() {
 
 // HTML Live Reload
 gulp.task('code', function () {
-  return gulp.src('public/*.html')
+  return gulp.src('src/**/*.html')
     .pipe(browserSync.reload({ stream: true }));
 });
 
@@ -88,13 +79,13 @@ gulp.task('img1x', function () {
   return gulp.src('src/assets/_img/**/*.*')
     .pipe(imageResize({ width: '50%' }))
     .pipe(imagemin())
-    .pipe(gulp.dest('public/img/@1x/'));
+    .pipe(gulp.dest('src/img/@1x/'));
 });
 gulp.task('img2x', function () {
   return gulp.src('src/assets/_img/**/*.*')
     .pipe(imageResize({ width: '100%' }))
     .pipe(imagemin())
-    .pipe(gulp.dest('public/img/@2x/'));
+    .pipe(gulp.dest('src/img/@2x/'));
 });
 
 // Clean @*x IMG's
@@ -103,17 +94,50 @@ gulp.task('cleanimg', function () {
 });
 
 
-
 // Img Processing Task for Gulp 4
 gulp.task('img', gulp.parallel('img1x', 'img2x'));
 
 gulp.task('watch', function () {
-  gulp.watch('src/scss/**/*.scss', gulp.parallel('styles'));
+  gulp.watch('src/scss/**/*.scss', gulp.parallel('styles', 'header'));
   gulp.watch('src/js/index.js', gulp.parallel('scripts'));
-  gulp.watch('public/*.html', gulp.parallel('code'));
-  gulp.watch('src/js/vue-template/*.*', gulp.parallel('scripts'));
+  gulp.watch('src/*.html', gulp.parallel('code'));
   gmWatch && gulp.watch('src/assets/_img/**/*', gulp.parallel('img'));
 });
 
 gmWatch ? gulp.task('default', gulp.parallel('img', 'styles', 'scripts', 'browser-sync', 'watch'))
   : gulp.task('default', gulp.parallel('styles', 'scripts', 'browser-sync', 'watch'));
+
+
+
+// gulp.task('scripts', function () {
+//   return gulp.src('src/js/index.js')
+//     .pipe(webpackStream({
+//       output: {
+//         filename: 'app.js',
+//       },
+//       module: {
+//         rules: [
+//           {
+//             test: /\.scss$/,
+//             loaders: ['style', 'css', 'sass']
+//           },
+//           {
+//             test: /\.vue$/,
+//             loader: 'vue-loader'
+//           },
+//           {
+//             test: /\.(js)$/,
+//             loader: 'babel-loader',
+//             query: {
+//               presets: ['env']
+//             }
+//           }
+//         ]
+//       }
+//     }))
+//     .pipe(gulp.dest('./app/bundle/'))
+//     .pipe(uglify())
+//     .pipe(rename({ suffix: '.min' }))
+//     .pipe(gulp.dest('./app/bundle/'))
+//     .pipe(browserSync.stream());
+// });

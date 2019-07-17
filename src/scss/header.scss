@@ -1,0 +1,73 @@
+@import "vars";
+@import "fonts";
+@import "libs";
+
+::placeholder {
+  color: #999;
+}
+
+::selection {
+  background-color: $accent;
+  color: #fff;
+}
+
+html {
+  overflow: hidden;
+  overflow-y: scroll;
+  width: 100%;
+}
+
+body {
+  font-size: 16px;
+  min-width: 320px;
+  position: relative;
+  line-height: 1.65;
+  font-family: $default-font;
+  overflow-x: hidden;
+  color: $text;
+  input,
+  textarea {
+    border: #666 1px solid;
+    outline: none;
+    &:focus:required:invalid {
+      border-color: red;
+    }
+    &:required:valid {
+      border-color: green;
+    }
+  }
+}
+
+.img-responsive {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  &.img-width {
+    width: 100%;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+b,
+strong {
+  font-weight: bold;
+}
+
+.thumb {
+  overflow: hidden;
+  img {
+    width: 100%;
+    display: block;
+    background-image: url(data:image/gif;base64,R0lGODlhCgAIAIABAN3d3f///yH5BAEAAAEALAAAAAAKAAgAAAINjAOnyJv2oJOrVXrzKQA7);
+  }
+}
+
+/* Header style's */
+
+.heading-1 {
+  font-size: 42px;
+  font-weight: 100;
+}

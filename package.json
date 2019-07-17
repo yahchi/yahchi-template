@@ -1,6 +1,6 @@
 {
   "name": "yahchi-template",
-  "version": "1.1",
+  "version": "2.0.0",
   "main": "index.js",
   "repository": "https://github.com/yahchi/yahchi-template.git",
   "author": "yahchi <rdrozhkov@gmail.com>",
